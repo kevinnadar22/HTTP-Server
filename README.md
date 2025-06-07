@@ -2,7 +2,7 @@
 
 > **Built from absolute scratch** - Pure Python, vanilla JavaScript, and HTML/CSS. No Express, No React, No Flask, No databases.
 
-![Notes App Interface](demo.png)
+![Notes App Interface](assets/demo.png)
 
 ## What Makes This Special
 
@@ -19,14 +19,14 @@ This project was my deep dive into **low-level web fundamentals**:
 - Socket programming and network communication
 - Building database abstractions without ORMs
 
-**Next Goal**: Building a mini web framework from these learnings! 🎯
+**Next Goal**: Building a mini web framework from these learnings
 
 ## Quick Start
 
 ```bash
 # Clone and run - that's it!
 git clone https://github.com/kevinnadar22/HTTP-Server
-cd HTTP\ Server
+cd HTTP-Server
 python main.py
 ```
 
@@ -42,7 +42,7 @@ Open http://localhost:8000 - Your notes app is ready! ✓
 
 ## UI Demo
 
-![Notes App Interface](demo.gif)
+![Notes App Interface](assets/demo.gif)
 
 
 ## 🛠 Technical Stack
@@ -55,8 +55,10 @@ Open http://localhost:8000 - Your notes app is ready! ✓
 | **Styling** | Pure CSS | Learn responsive design |
 | **API** | Hand-built REST | Understand HTTP methods |
 
-
 ---
 
-**Built with zero external dependencies**
+## Contact
 
+[kevinnadar22](https://github.com/kevinnadar22)
+
+[Email](mailto:jesikamaraj@gmail.com)
