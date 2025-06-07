@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin's Notes Portal</title>
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 11px;
+            background: #c0c0c0 url('data:image/gif;base64,R0lGODlhEAAQAPIAAAAAAP///8zMzP//zMzM/wAAAAAAAAAAACH5BAkKAAcALAAAAAAQABAAAAM2eLrc/jDKSau9OOvNu/9gKI5kaZ5oqq5s675wLM90bd94ru987//AoHBILFqPyKRyyWw6n9CdAAA7') repeat;
+            color: #000080;
+            margin: 0;
+            padding: 10px;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 2px outset #c0c0c0;
+            padding: 0;
+        }
+
+        .header {
+            background: linear-gradient(to bottom, #0040ff, #0020aa);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px inset #c0c0c0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px #000000;
+            font-weight: bold;
+        }
+
+        .header .subtitle {
+            font-size: 12px;
+            color: #ffff80;
+            margin-top: 5px;
+        }
+
+        .navbar {
+            background: #f0f0f0;
+            border-bottom: 1px solid #808080;
+            padding: 5px 10px;
+            font-size: 10px;
+        }
+
+        .navbar a {
+            color: #0000ff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+            color: #ff0000;
+        }
+
+        .content {
+            padding: 15px;
+        }
+
+        .section {
+            background: #f8f8f8;
+            border: 2px inset #c0c0c0;
+            margin-bottom: 15px;
+            padding: 0;
+        }
+
+        .section-header {
+            background: linear-gradient(to right, #8080ff, #4040ff);
+            color: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 12px;
+            border-bottom: 1px solid #4040ff;
+        }
+
+        .section-content {
+            padding: 12px;
+        }
+
+        .main-actions {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        .big-button {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 14px;
+            padding: 12px 24px;
+            border: 3px outset #c0c0c0;
+            background: #40ff40;
+            color: #000080;
+            cursor: pointer;
+            margin: 0 10px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px #ffffff;
+        }
+
+        .big-button:hover {
+            background: #60ff60;
+            border: 3px outset #e0e0e0;
+        }
+
+        .big-button:active {
+            border: 3px inset #c0c0c0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: #f0f0f0;
+            margin: 5% auto;
+            padding: 0;
+            border: 3px outset #c0c0c0;
+            width: 90%;
+            max-width: 500px;
+            font-family: Verdana, Arial, sans-serif;
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, #ff8080, #ff4040);
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 14px;
+            border-bottom: 2px inset #c0c0c0;
+            position: relative;
+        }
+
+        .modal-body {
+            padding: 20px;
+            background: #ffffff;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #ffff80;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        input, textarea {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 11px;
+            padding: 6px;
+            border: 2px inset #c0c0c0;
+            background: #ffffff;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus {
+            background: #ffffcc;
+            outline: none;
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        button {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 11px;
+            padding: 6px 12px;
+            border: 2px outset #c0c0c0;
+            background: #e0e0e0;
+            cursor: pointer;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        button:hover {
+            background: #f0f0f0;
+        }
+
+        button:active {
+            border: 2px inset #c0c0c0;
+        }
+
+        .btn-primary {
+            background: #0080ff;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background: #0060dd;
+        }
+
+        .btn-danger {
+            background: #ff4040;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dd2020;
+        }
+
+        .search-table {
+            width: 100%;
+        }
+
+        .search-table td {
+            padding: 3px;
+        }
+
+        .note {
+            background: #ffffff;
+            border: 1px solid #808080;
+            margin-bottom: 8px;
+            padding: 8px;
+        }
+
+        .note-title {
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 5px;
+            text-decoration: underline;
+        }
+
+        .note-content {
+            color: #000000;
+            margin-bottom: 8px;
+            white-space: pre-wrap;
+            font-family: "Courier New", monospace;
+            font-size: 10px;
+            background: #f8f8f8;
+            padding: 5px;
+            border: 1px solid #d0d0d0;
+        }
+
+        .message {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 2px inset #c0c0c0;
+            font-weight: bold;
+        }
+
+        .error {
+            background: #ffcccc;
+            color: #800000;
+        }
+
+        .success {
+            background: #ccffcc;
+            color: #008000;
+        }
+
+        .empty {
+            text-align: center;
+            color: #808080;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        .footer {
+            background: #f0f0f0;
+            border-top: 2px inset #c0c0c0;
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+            color: #808080;
+        }
+
+        .counter {
+            background: #000000;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            padding: 2px 6px;
+            border: 1px solid #808080;
+            font-size: 10px;
+        }
+
+        .blinking {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .marquee {
+            background: #000080;
+            color: #ffff00;
+            padding: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            border: 1px solid #404040;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            animation: scroll 15s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+        }
+
+        .form-row:last-child {
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: bold;
+            color: #000080;
+            margin-bottom: 4px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 5px;
+            }
+            
+            .search-table {
+                display: block;
+            }
+            
+            .search-table td {
+                display: block;
+                padding: 2px 0;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .big-button {
+                display: block;
+                margin: 10px auto;
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Kevin's Notes Portal 🌟</h1>
+            <div class="subtitle">Welcome to the ULTIMATE Note Taking Experience!</div>
+        </div>
+
+
+        <div class="marquee">
+            <div class="marquee-text">*** Welcome to my awesome notes website! Don't forget to sign my guestbook! This site is best viewed in Netscape Navigator 4.0+ ***</div>
+        </div>
+
+        <div class="content">
+            <div id="message"></div>
+
+            <!-- Visitor Counter -->
+            <div style="text-align: center; margin-bottom: 15px;">
+                <strong>You are visitor number:</strong> <span class="counter">001337</span>
+                <br><small>Since January 1, 2000</small>
+            </div>
+
+            <!-- Main Action Buttons -->
+            <div class="main-actions">
+                <button class="big-button" onclick="openAddModal()">📝 ADD NEW NOTE</button>
+                <!-- <button class="big-button" onclick="loadNotes()" style="background: #8080ff; color: white;">🔄 REFRESH NOTES</button> -->
+            </div>
+
+            <!-- Notes List Section -->
+            <div class="section">
+                <div class="section-header">
+                    📚 MY NOTES COLLECTION
+                    <span style="float: right;">
+                        <span id="notesCount" style="font-size: 10px;">0 notes</span>
+                    </span>
+                </div>
+                <div class="section-content">
+                    <!-- Search Box -->
+                    <div style="background: #f0f0f0; border: 1px solid #808080; padding: 8px; margin-bottom: 15px;">
+                        <table class="search-table">
+                            <tr>
+                                <td width="70%">
+                                    <input type="text" id="searchQuery" placeholder="🔍 Search your notes..." style="margin-bottom: 0;">
+                                </td>
+                                <td width="15%">
+                                    <button class="btn-primary" onclick="handleSearch()">SEARCH</button>
+                                </td>
+                                <td width="15%">
+                                    <button onclick="clearSearch()">CLEAR</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div id="notesList">Loading notes... <span class="blinking">⏳</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>© 2000 Kevin's Notes Portal</strong></p>
+            <p>Best viewed at 800x600 resolution • Powered by GeoCities</p>
+            <p>
+                <img src="data:image/gif;base64,R0lGODlhEAAKAKEBAAAAAP///////////yH5BAEKAAIALAAAAAAQAAoAAAISlI+py30Bo5y02ouzqW7fCxQAOw==" alt="Made with Notepad"> 
+                Made with Notepad • 
+                <img src="data:image/gif;base64,R0lGODlhEAAKAKEBAAAAAP///////////yH5BAEKAAIALAAAAAAQAAoAAAISlI+py30Bo5y02ouzqW7fCxQAOw==" alt="HTML"> 
+                Valid HTML 4.0
+            </p>
+        </div>
+    </div>
+
+    <!-- Add Note Modal -->
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                ✍️ ADD NEW NOTE
+                <span class="close" onclick="closeAddModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="createForm">
+                    <div class="form-row">
+                        <label class="form-label">📝 Note Title:</label>
+                        <input type="text" id="title" name="title" placeholder="Enter your note title..." required>
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">📄 Note Content:</label>
+                        <textarea id="content" name="content" placeholder="Type your note content here..." required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <button type="submit" class="btn-primary">💾 SAVE NOTE</button>
+                        <button type="button" onclick="closeAddModal()">❌ CANCEL</button>
+                        <button type="reset">🗑️ CLEAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Note Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                ✏️ EDIT NOTE
+                <span class="close" onclick="closeEditModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="updateForm">
+                    <input type="hidden" id="updateId" name="id">
+                    <div class="form-row">
+                        <label class="form-label">📝 Note Title:</label>
+                        <input type="text" id="updateTitle" name="title" required>
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">📄 Note Content:</label>
+                        <textarea id="updateContent" name="content" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <button type="submit" class="btn-primary">💾 SAVE CHANGES</button>
+                        <button type="button" onclick="closeEditModal()">❌ CANCEL</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNotes();
+            document.getElementById('createForm').addEventListener('submit', handleCreateNote);
+            document.getElementById('updateForm').addEventListener('submit', handleUpdateNote);
+            document.getElementById('searchQuery').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleSearch();
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    closeAddModal();
+                    closeEditModal();
+                }
+            });
+        });
+
+        function showMessage(message, type = 'success') {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${message}</div>`;
+            setTimeout(() => messageDiv.innerHTML = '', 4000);
+        }
+
+        function updateNotesCount(count) {
+            document.getElementById('notesCount').textContent = `${count} note${count !== 1 ? 's' : ''}`;
+        }
+
+        async function loadNotes() {
+            try {
+                const notes = await getNotes();
+                displayNotes(notes);
+                updateNotesCount(notes.length);
+            } catch (error) {
+                showMessage('ERROR: Unable to load notes: ' + error.message, 'error');
+            }
+        }
+
+        async function handleSearch() {
+            const searchQuery = document.getElementById('searchQuery').value.trim();
+            if (!searchQuery) {
+                showMessage('ERROR: Please enter a search term!', 'error');
+                return;
+            }
+            try {
+                const notes = await searchNotes(searchQuery);
+                displayNotes(notes);
+                updateNotesCount(notes.length);
+                showMessage(`SEARCH COMPLETE: Found ${notes.length} matching notes!`);
+            } catch (error) {
+                showMessage('ERROR: Search failed: ' + error.message, 'error');
+            }
+        }
+
+        function clearSearch() {
+            document.getElementById('searchQuery').value = '';
+            loadNotes();
+            showMessage('Search cleared!');
+        }
+
+        function displayNotes(notes) {
+            const notesList = document.getElementById('notesList');
+            if (!notes || notes.length === 0) {
+                notesList.innerHTML = '<div class="empty">No notes found! Click "ADD NEW NOTE" to create your first note! 📝</div>';
+                return;
+            }
+            notesList.innerHTML = notes.map(note => `
+                <div class="note">
+                    <div class="note-title">📄 ${escapeHtml(note.title)}</div>
+                    <div class="note-content">${escapeHtml(note.content)}</div>
+                    <button onclick="editNote(${note.id}, '${escapeHtml(note.title)}', '${escapeHtml(note.content)}')">✏️ EDIT</button>
+                    <button class="btn-danger" onclick="deleteNote(${note.id})">🗑️ DELETE</button>
+                </div>
+            `).join('');
+        }
+
+        // Modal Functions
+        function openAddModal() {
+            document.getElementById('addModal').style.display = 'block';
+            document.getElementById('title').focus();
+        }
+
+        function closeAddModal() {
+            document.getElementById('addModal').style.display = 'none';
+            document.getElementById('createForm').reset();
+        }
+
+        function openEditModal() {
+            document.getElementById('editModal').style.display = 'block';
+            document.getElementById('updateTitle').focus();
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+            document.getElementById('updateForm').reset();
+        }
+
+        async function handleCreateNote(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                await createNote(formData.get('title'), formData.get('content'));
+                showMessage('SUCCESS: Note created successfully! 🎉');
+                closeAddModal();
+                loadNotes();
+            } catch (error) {
+                showMessage('ERROR: Failed to create note: ' + error.message, 'error');
+            }
+        }
+
+        async function handleUpdateNote(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                await updateNote(formData.get('id'), formData.get('title'), formData.get('content'));
+                showMessage('SUCCESS: Note updated! 💫');
+                closeEditModal();
+                loadNotes();
+            } catch (error) {
+                showMessage('ERROR: Failed to update note: ' + error.message, 'error');
+            }
+        }
+
+        function editNote(id, title, content) {
+            document.getElementById('updateId').value = id;
+            document.getElementById('updateTitle').value = title;
+            document.getElementById('updateContent').value = content;
+            openEditModal();
+            showMessage('Editing mode activated! ✨');
+        }
+
+        async function deleteNote(id) {
+            if (confirm('⚠️ WARNING: Are you SURE you want to delete this note? This action cannot be undone!')) {
+                try {
+                    await deleteNoteById(id);
+                    showMessage('SUCCESS: Note deleted! 💥');
+                    loadNotes();
+                } catch (error) {
+                    showMessage('ERROR: Failed to delete note: ' + error.message, 'error');
+                }
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+
+</html>
