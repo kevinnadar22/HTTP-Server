@@ -12,12 +12,36 @@
 - **Manual HTTP Protocol**: Hand-crafted request/response handling
 - **Async Non-blocking Server**: Built with Python `select` for concurrent connections
 
+
 ## Learning Journey
 
 This project was my learning of **low-level web fundamentals**:
 - Understanding HTTP protocol from ground up
 - Socket programming and network communication
 - Building database abstractions without ORMs
+
+## How the Communication Happens
+
+1. A client (e.g., browser) initiates a connection to the server over **TCP**.
+
+![alt text](assets/step1.png)
+
+2. Once connected, the client sends an **HTTP request** with headers.
+
+3. For example, accessing `openai.com/pricing` would send:
+
+   ```
+   GET /pricing HTTP/1.1
+   Host: openai.com
+   Content-Type: text/html
+   ```
+
+![alt text](assets/step2.png)
+
+4. The server reads the request, processes it, and sends an appropriate **HTTP response**.
+
+5. The connection may then be closed or kept alive based on the headers.
+
 
 **Next Goal**: Building a mini web framework from these learnings
 
