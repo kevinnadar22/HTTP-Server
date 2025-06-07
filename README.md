@@ -14,7 +14,7 @@
 
 ## Learning Journey
 
-This project was my deep dive into **low-level web fundamentals**:
+This project was my learning of **low-level web fundamentals**:
 - Understanding HTTP protocol from ground up
 - Socket programming and network communication
 - Building database abstractions without ORMs
@@ -52,13 +52,13 @@ Open http://localhost:8000 - Your notes app is ready! ✓
 | **Server** | Raw Python Sockets | Learn HTTP fundamentals |
 | **Database** | Custom JSON ORM | Understand data persistence |
 | **Frontend** | Vanilla JS + CSS | Master DOM manipulation |
-| **Styling** | Pure CSS | Learn responsive design |
-| **API** | Hand-built REST | Understand HTTP methods |
 
 ---
 
 ## Contact
 
-[kevinnadar22](https://github.com/kevinnadar22)
+Feel free to reach out:
 
-[Email](mailto:jesikamaraj@gmail.com)
+- GitHub: [kevinnadar22](https://github.com/kevinnadar22)
+- Email: [jesikamaraj@gmail.com](mailto:jesikamaraj@gmail.com)
+
