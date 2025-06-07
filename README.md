@@ -1,8 +1,10 @@
-# ⚡ Zero-Framework Notes App
+# Zero-Framework Notes App
 
-> **Built from absolute scratch** - No Express, No React, No Flask, No databases. Just pure Python, vanilla JavaScript, and HTML/CSS.
+> **Built from absolute scratch** - Pure Python, vanilla JavaScript, and HTML/CSS. No Express, No React, No Flask, No databases.
 
-## 🔥 What Makes This Special
+![Notes App Interface](demo.png)
+
+## What Makes This Special
 
 - **100% Framework-Free Backend**: Raw Python sockets, manual HTTP parsing, custom routing
 - **Pure Vanilla Frontend**: Zero JavaScript frameworks - just DOM manipulation and fetch API
@@ -10,22 +12,20 @@
 - **Manual HTTP Protocol**: Hand-crafted request/response handling
 - **Async Non-blocking Server**: Built with Python `select` for concurrent connections
 
-## 📚 Learning Journey
+## Learning Journey
 
 This project was my deep dive into **low-level web fundamentals**:
 - Understanding HTTP protocol from ground up
 - Socket programming and network communication
 - Building database abstractions without ORMs
-- Creating responsive UIs without CSS frameworks
-- Implementing REST APIs manually
 
 **Next Goal**: Building a mini web framework from these learnings! 🎯
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Clone and run - that's it!
-git clone <your-repo>
+git clone https://github.com/kevinnadar22/HTTP-Server
 cd HTTP\ Server
 python main.py
 ```
@@ -40,7 +40,7 @@ Open http://localhost:8000 - Your notes app is ready! ✓
 - Concurrent connections and error handling
 - HTTP compliance and RESTful API
 
-## 📸 UI Demo
+## UI Demo
 
 ![Notes App Interface](demo.gif)
 

@@ -5,7 +5,7 @@ import traceback
 from db import note_db
 
 HOST = "0.0.0.0"
-PORT = 8001
+PORT = 8000
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
